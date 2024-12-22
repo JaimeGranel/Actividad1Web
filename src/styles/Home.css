@@ -1,0 +1,16 @@
+.main-page {
+    padding: 20px;
+    background: #f4f4f4;
+}
+
+.main-page__catalog {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+.main-page__no-results {
+    text-align: center;
+    color: #777;
+    font-size: 1.2rem;
+}
