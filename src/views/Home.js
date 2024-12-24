@@ -7,7 +7,7 @@ import BookCard from "../Components/BookCard";
 
 
 const Home = ({ searchTerm }) => {
-    const { bookCatalog } = useBookCatalog(); // Obtener catálogo de libros
+    const { bookCatalog } = useBookCatalog();
     const { filteredBooks } = useFilteredBooks(bookCatalog, searchTerm || "");
     const navigate = useNavigate();
 
@@ -29,5 +29,6 @@ const Home = ({ searchTerm }) => {
         </div>
     );
 };
+
 
 export default Home;

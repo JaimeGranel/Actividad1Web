@@ -7,7 +7,7 @@ import "../styles/Product.css";
 const Product = () => {
     const { id } = useParams();
     const navigate = useNavigate();
-    const { bookCatalog, updateBookById } = useBookCatalog();
+    const { bookCatalog, updateBookById } = useBookCatalog(); // Obtener el catálogo global
     const { addToCart } = useCart();
 
     const [confirmation, setConfirmation] = useState(false);
@@ -22,8 +22,8 @@ const Product = () => {
         if (product.stock > 0) {
             addToCart(product);
             updateBookById(product.id, { stock: product.stock - 1 });
-            setConfirmation(true); // Mostrar confirmación
-            setTimeout(() => setConfirmation(false), 1000); // Ocultar confirmación después de 2 segundos
+            setConfirmation(true);
+            setTimeout(() => setConfirmation(false), 2000);
         }
     };
 
@@ -63,5 +63,4 @@ const Product = () => {
         </div>
     );
 };
-
 export default Product;

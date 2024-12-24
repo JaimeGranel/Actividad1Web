@@ -6,46 +6,48 @@ import "../styles/GlobalStyles.css";
 import Product from "../views/Product";
 import Header from "../Components/Header";
 import { CartProvider } from "../hooks/useCart";
+import {BookCatalogProvider} from "../hooks/useBookCatalog";
 
 function GlobalRouter() {
     return (
-        <CartProvider>
-            <BrowserRouter>
-                <Routes>
-                    <Route path="/" element={<Loader />} />
-                    <Route
-                        path="/home"
-                        element={
-                            <Layout>
-                                {(searchTerm, setSearchTerm) => (
-                                    <Home searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
-                                )}
-                            </Layout>
-                        }
-                    />
-                    <Route
-                        path="/book/:id"
-                        element={
-                            <Layout>
-                                {() => <Product />}
-                            </Layout>
-                        }
-                    />
-                    <Route path="*" element={<NotFound />} />
-                </Routes>
-            </BrowserRouter>
-        </CartProvider>
+        <BookCatalogProvider>
+            <CartProvider>
+                <BrowserRouter>
+                    <Routes>
+                        <Route path="/" element={<Loader />} />
+                        <Route
+                            path="/home"
+                            element={<HomeWithSearch />}
+                        />
+                        <Route
+                            path="/book/:id"
+                            element={
+                                <Layout>
+                                    <Product />
+                                </Layout>
+                            }
+                        />
+                        <Route path="*" element={<NotFound />} />
+                    </Routes>
+                </BrowserRouter>
+            </CartProvider>
+        </BookCatalogProvider>
     );
 }
 
-const Layout = ({ children }) => {
-    const [searchTerm, setSearchTerm] = useState("");
+const Layout = ({ children, searchTerm, setSearchTerm }) => (
+    <>
+        <Header searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
+        <main>{children}</main>
+    </>
+);
 
+const HomeWithSearch = () => {
+    const [searchTerm, setSearchTerm] = useState("");
     return (
-        <>
-            <Header searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
-            {children(searchTerm, setSearchTerm)}
-        </>
+        <Layout searchTerm={searchTerm} setSearchTerm={setSearchTerm}>
+            <Home searchTerm={searchTerm} />
+        </Layout>
     );
 };
 

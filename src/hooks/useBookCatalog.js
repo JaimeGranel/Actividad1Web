@@ -1,12 +1,10 @@
-import {useEffect, useState} from "react";
+import {createContext, useContext, useEffect, useState} from "react";
 import LibroEje from "../Imagenes/LibroEje.png";
 
-export const useBookCatalog = () => {
-    const [bookCatalog, setBookCatalog] = useState([]);
+const BookCatalogContext = createContext();
 
-    useEffect(() => {
-        setTimeout(()=>{
-            setBookCatalog([
+export const BookCatalogProvider = ({ children }) => {
+    const [bookCatalog, setBookCatalog] = useState([
                 {id:0,name:"Libro1",description:"Libro 1", precio:9.5,stock:100,image:LibroEje},
                 {id:1,name:"Libro2",description:"Libro 2", precio:5,stock:0,image:LibroEje},
                 {id:2,name:"Libro2",description:"Libro 2", precio:5,stock:100,image:LibroEje},
@@ -53,19 +51,26 @@ export const useBookCatalog = () => {
                 {id:43,name:"Libro2",description:"Libro 2", precio:5,stock:100,image:LibroEje},
                 {id:44,name:"Libro2",description:"Libro 2", precio:5,stock:100,image:LibroEje},
                 {id:45,name:"Libro2",description:"Libro 2", precio:5,stock:100,image:LibroEje},
-            ]);
-        }, 100);
-    }, []);
+    ]);
+
     const updateBookById = (id, updates) => {
         setBookCatalog((prevCatalog) =>
             prevCatalog.map((book) =>
                 book.id === id
                     ? { ...book, ...updates }
-
                     : book
             )
         );
     };
 
-    return { bookCatalog, updateBookById };
-}
+    return (
+        <BookCatalogContext.Provider value={{ bookCatalog, updateBookById }}>
+            {children}
+        </BookCatalogContext.Provider>
+    );
+};
+
+
+export const useBookCatalog = () => {
+    return useContext(BookCatalogContext);
+};
