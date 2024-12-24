@@ -1,14 +1,12 @@
 import { useState, useMemo } from 'react';
 
-export const useFilteredBooks = (books) => {
-    const [searchTerm, setSearchTerm] = useState('');
 
+export const useFilteredBooks = (books, searchTerm) => {
     const filteredBooks = useMemo(() => {
-        return books.filter(book =>
+        return books.filter((book) =>
             book.name.toLowerCase().includes(searchTerm.toLowerCase())
         );
     }, [books, searchTerm]);
 
-    return { searchTerm, setSearchTerm, filteredBooks };
+    return { filteredBooks };
 };
-

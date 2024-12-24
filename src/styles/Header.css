@@ -2,18 +2,52 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 20px;
-    background-color:wheat;
+    padding: 10px 20px;
+    background: #c8a990;
+    border-bottom: 1px solid #ddd;
+}
+
+.header__back-button {
+    font-size: 1rem;
+    color: #007bff;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.header__back-button:hover {
+    text-decoration: underline;
 }
 
 .header__title {
-    font-size: 2rem;
+    font-size: 1.5rem;
     color: #333;
+    margin: 0 20px;
+    flex-grow: 1;
+    text-align: center;
 }
 
 .header__search {
-    padding: 10px;
+    flex: 1;
+    margin: 0 20px;
+    padding: 8px 12px;
     font-size: 1rem;
     border: 1px solid #ccc;
     border-radius: 4px;
+}
+
+.header__cart {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.header__cart-count {
+    margin-left: 5px;
+    font-size: 1rem;
+    color: white;
+    background: #007bff;
+    border-radius: 50%;
+    padding: 5px 10px;
+    font-weight: bold;
 }

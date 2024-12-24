@@ -1,26 +1,21 @@
 import React from "react";
 import { useBookCatalog } from '../hooks/useBookCatalog';
 import { useFilteredBooks } from '../hooks/useFilteredBooks';
-import Header from "../Components/Header";
 import "../styles/Home.css";
 import {useNavigate} from "react-router-dom";
 import BookCard from "../Components/BookCard";
-const Home = () => {
+
+
+const Home = ({ setSearchTerm, searchTerm }) => {
     const books = useBookCatalog();
-    const { searchTerm, setSearchTerm, filteredBooks } = useFilteredBooks(books);
+    const { filteredBooks } = useFilteredBooks(books, searchTerm);
     const navigate = useNavigate();
 
     return (
         <div className="main-page">
-            <Header
-                title="Catálogo de Libros"
-                searchPlaceholder="Buscar por título..."
-                searchTerm={searchTerm}
-                setSearchTerm={setSearchTerm}
-            />
             <section className="main-page__catalog">
                 {filteredBooks.length > 0 ? (
-                    filteredBooks.map(book => (
+                    filteredBooks.map((book) => (
                         <BookCard
                             key={book.id}
                             book={book}
