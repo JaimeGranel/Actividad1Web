@@ -1,7 +1,7 @@
-import React from 'react';
-import '../styles/Header.css';
-import {useLocation, useNavigate} from "react-router-dom";
-import {useCart} from "../hooks/useCart";
+import React from "react";
+import "../styles/Header.css";
+import { useNavigate } from "react-router-dom";
+import { useCart } from "../hooks/useCart";
 
 const Header = ({ searchTerm, setSearchTerm }) => {
     const { cart } = useCart();
@@ -15,9 +15,7 @@ const Header = ({ searchTerm, setSearchTerm }) => {
                 </button>
             )}
 
-
             <h1 className="header__title">Relatos de Papel</h1>
-
 
             {searchTerm !== undefined && setSearchTerm !== undefined && (
                 <input
@@ -28,7 +26,6 @@ const Header = ({ searchTerm, setSearchTerm }) => {
                     onChange={(e) => setSearchTerm(e.target.value)}
                 />
             )}
-
 
             <div className="header__cart" onClick={() => navigate("/cart")}>
                 🛒 <span className="header__cart-count">{cart.length}</span>

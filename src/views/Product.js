@@ -1,10 +1,9 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useBookCatalog } from "../hooks/useBookCatalog";
 import { useBookById } from "../hooks/useBookById";
 import { useCart } from "../hooks/useCart";
 import "../styles/Product.css";
-import Header from "../Components/Header";
 
 const Product = () => {
     const { id } = useParams(); // Obtener ID desde la URL
