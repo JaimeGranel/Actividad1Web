@@ -1,5 +1,6 @@
 import {useEffect, useState} from "react";
 import LibroEje from "../Imagenes/LibroEje.png";
+
 export const useBookCatalog = () => {
     const [bookCatalog, setBookCatalog] = useState([]);
 
@@ -53,8 +54,18 @@ export const useBookCatalog = () => {
                 {id:44,name:"Libro2",description:"Libro 2", precio:5,stock:100,image:LibroEje},
                 {id:45,name:"Libro2",description:"Libro 2", precio:5,stock:100,image:LibroEje},
             ]);
-        }, 0);
+        }, 100);
     }, []);
+    const updateBookById = (id, updates) => {
+        setBookCatalog((prevCatalog) =>
+            prevCatalog.map((book) =>
+                book.id === id
+                    ? { ...book, ...updates }
 
-    return bookCatalog;
+                    : book
+            )
+        );
+    };
+
+    return { bookCatalog, updateBookById };
 }

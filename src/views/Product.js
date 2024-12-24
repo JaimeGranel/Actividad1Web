@@ -1,29 +1,30 @@
 import React, { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useBookCatalog } from "../hooks/useBookCatalog";
-import { useBookById } from "../hooks/useBookById";
 import { useCart } from "../hooks/useCart";
 import "../styles/Product.css";
 
 const Product = () => {
-    const { id } = useParams(); // Obtener ID desde la URL
-    const bookCatalog = useBookCatalog(); // Obtener catálogo
-    const { addToCart } = useCart(); // Manejar carrito
-    const navigate = useNavigate(); // Navegar entre rutas
+    const { id } = useParams();
+    const navigate = useNavigate();
+    const { bookCatalog, updateBookById } = useBookCatalog();
+    const { addToCart } = useCart();
 
-    const [confirmation, setConfirmation] = useState(false); // Confirmación al añadir al carrito
-    const product = useBookById(id, bookCatalog); // Buscar producto por ID
+    const [confirmation, setConfirmation] = useState(false);
+
+    const product = bookCatalog.find((book) => book.id === parseInt(id));
 
     if (!product) {
         return <p>Producto no encontrado.</p>;
     }
 
     const handleAddToCart = () => {
-        addToCart(product);
-        setConfirmation(true);
-        setTimeout(() => {
-            setConfirmation(false);
-        }, 2000);
+        if (product.stock > 0) {
+            addToCart(product);
+            updateBookById(product.id, { stock: product.stock - 1 });
+            setConfirmation(true); // Mostrar confirmación
+            setTimeout(() => setConfirmation(false), 1000); // Ocultar confirmación después de 2 segundos
+        }
     };
 
     return (
@@ -42,7 +43,6 @@ const Product = () => {
                 >
                     {product.stock > 0 ? `Stock: ${product.stock}` : "Producto agotado"}
                 </p>
-
                 <button
                     className="product-detail__add-to-cart"
                     onClick={handleAddToCart}
@@ -51,9 +51,7 @@ const Product = () => {
                     {product.stock > 0 ? "Añadir al carrito" : "Sin stock"}
                 </button>
                 {confirmation && (
-                    <p className="product-detail__confirmation">
-                        ¡Producto añadido al carrito!
-                    </p>
+                    <p className="product-detail__confirmation">¡Producto añadido al carrito!</p>
                 )}
                 <button
                     className="product-detail__back-button"

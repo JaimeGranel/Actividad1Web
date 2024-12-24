@@ -1,14 +1,14 @@
 import React from "react";
-import { useBookCatalog } from '../hooks/useBookCatalog';
-import { useFilteredBooks } from '../hooks/useFilteredBooks';
+import { useNavigate } from "react-router-dom";
+import { useBookCatalog } from "../hooks/useBookCatalog";
+import { useFilteredBooks } from "../hooks/useFilteredBooks";
 import "../styles/Home.css";
-import {useNavigate} from "react-router-dom";
 import BookCard from "../Components/BookCard";
 
 
-const Home = ({ setSearchTerm, searchTerm }) => {
-    const books = useBookCatalog();
-    const { filteredBooks } = useFilteredBooks(books, searchTerm);
+const Home = ({ searchTerm }) => {
+    const { bookCatalog } = useBookCatalog(); // Obtener catálogo de libros
+    const { filteredBooks } = useFilteredBooks(bookCatalog, searchTerm || "");
     const navigate = useNavigate();
 
     return (
@@ -23,7 +23,7 @@ const Home = ({ setSearchTerm, searchTerm }) => {
                         />
                     ))
                 ) : (
-                    <p className="main-page__no-results">No se encontraron libros con ese título.</p>
+                    <p>Cargando libros...</p>
                 )}
             </section>
         </div>
