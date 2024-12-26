@@ -7,7 +7,7 @@ import "../styles/Product.css";
 const Product = () => {
     const { id } = useParams();
     const navigate = useNavigate();
-    const { bookCatalog, updateBookById } = useBookCatalog(); // Obtener el catálogo global
+    const { bookCatalog, updateBookById } = useBookCatalog();
     const { addToCart } = useCart();
 
     const [confirmation, setConfirmation] = useState(false);
@@ -35,7 +35,7 @@ const Product = () => {
             <div className="product-detail__info">
                 <h1 className="product-detail__title">{product.name}</h1>
                 <p className="product-detail__description">{product.description}</p>
-                <p className="product-detail__price">Precio: ${product.precio.toFixed(2)}</p>
+                <p className="product-detail__price">Precio: {product.precio.toFixed(2)}€</p>
                 <p
                     className={`product-detail__stock ${
                         product.stock > 0 ? "in-stock" : "out-of-stock"

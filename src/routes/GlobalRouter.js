@@ -2,11 +2,12 @@ import React, { useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Loader from "../views/Loader";
 import Home from "../views/Home";
-import "../styles/GlobalStyles.css";
 import Product from "../views/Product";
+import Checkout from "../views/Checkout";
 import Header from "../Components/Header";
 import { CartProvider } from "../hooks/useCart";
-import {BookCatalogProvider} from "../hooks/useBookCatalog";
+import { BookCatalogProvider } from "../hooks/useBookCatalog";
+import "../styles/GlobalStyles.css";
 
 function GlobalRouter() {
     return (
@@ -15,18 +16,9 @@ function GlobalRouter() {
                 <BrowserRouter>
                     <Routes>
                         <Route path="/" element={<Loader />} />
-                        <Route
-                            path="/home"
-                            element={<HomeWithSearch />}
-                        />
-                        <Route
-                            path="/book/:id"
-                            element={
-                                <Layout>
-                                    <Product />
-                                </Layout>
-                            }
-                        />
+                        <Route path="/home" element={<HomeWithSearch />} />
+                        <Route path="/book/:id" element={<ProductLayout />} />
+                        <Route path="/checkout" element={<CheckoutLayout />} />
                         <Route path="*" element={<NotFound />} />
                     </Routes>
                 </BrowserRouter>
@@ -50,6 +42,18 @@ const HomeWithSearch = () => {
         </Layout>
     );
 };
+
+const ProductLayout = () => (
+    <Layout>
+        <Product />
+    </Layout>
+);
+
+const CheckoutLayout = () => (
+    <Layout>
+        <Checkout />
+    </Layout>
+);
 
 const NotFound = () => (
     <div>
